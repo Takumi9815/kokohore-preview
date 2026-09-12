@@ -59,9 +59,9 @@ a { color: inherit; text-decoration: none; }
 }
 /* ★4.6バッジ（画像には焼き込まず、テキストで時点更新できるようにする） */
 .fv .rating {
-  position: absolute; z-index: 2; top: 18px; right: 22px;
-  display: flex; align-items: center; gap: 6px;
-  padding: 8px 14px; border-radius: 999px;
+  position: absolute; z-index: 2; top: 12px; right: 16px;
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 12px; border-radius: 999px;
   background: rgba(253, 252, 250, .94); border: 1px solid var(--color-border);
   font-size: 18px; font-weight: 700; color: var(--color-text);
   box-shadow: 0 4px 12px rgba(74, 58, 46, .10);
@@ -181,7 +181,7 @@ a { color: inherit; text-decoration: none; }
   :root { --fixed-cta-height: 84px; }
 
   .fv .fv-logo { top: 2.133vw; left: 2.667vw; width: 16vw; padding: .8vw 1.333vw; border-radius: 1.6vw; }
-  .fv .rating { top: 2.4vw; right: 2.933vw; padding: 1.067vw 1.867vw; gap: .8vw; font-size: clamp(11px, 2.4vw, 18px); }
+  .fv .rating { top: 1.6vw; right: 2.133vw; padding: .8vw 1.6vw; gap: .667vw; font-size: clamp(10px, 2.133vw, 16px); }
   .fv .rating b { font-size: clamp(13px, 2.933vw, 22px); }
   .fv .rating small { font-size: clamp(8px, 1.6vw, 12px); }
   .photo-wrap .img-note { right: 1.867vw; bottom: 1.867vw; padding: .4vw 1.333vw; font-size: clamp(9px, 1.867vw, 14px); }
