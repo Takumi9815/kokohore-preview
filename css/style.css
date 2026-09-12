@@ -86,6 +86,15 @@ a { color: inherit; text-decoration: none; }
 .btn .t small { font-size: 17px; font-weight: 500; opacity: .92; }
 .btn-line { background: var(--color-line); color: #fff; box-shadow: 0 10px 24px rgba(6, 199, 85, .3); }
 .btn-line:hover { background: var(--color-line-dark); transform: translateY(-2px); }
+/* CTAと分かるように：2.4秒に1回ぷるっと揺れ＋光沢が左→右へ流れる（固定バー・本文CTA共通） */
+.btn-line { position: relative; overflow: hidden; animation: cta-shake 2.4s ease-in-out infinite; }
+.btn-line:hover { animation: none; }
+.btn-line::after {
+  content: ""; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .45), transparent);
+  transform: skewX(-20deg); pointer-events: none;
+  animation: cta-shine 2.4s ease-in-out infinite;
+}
 .btn-tel { background: #fff; color: var(--color-accent); border: 3px solid var(--color-accent); box-shadow: 0 8px 20px rgba(184, 115, 63, .14); }
 .btn-tel:hover { background: var(--color-accent-soft); }
 .btn-line .ico { color: var(--color-line); background: #fff; border-radius: 50%; padding: 8px; }
@@ -94,12 +103,18 @@ a { color: inherit; text-decoration: none; }
 /* ===== ②キャンペーン：画像内のLINEボタンの上に透明リンクを重ねる ===== */
 /* 位置は画像（1500×1500）内のボタン。画像を作り直したら left/top/width/height を合わせて調整 */
 .campaign .btn-overlay {
-  position: absolute; z-index: 2;
+  position: absolute; z-index: 2; overflow: hidden;
   left: 10.4%; top: 78%; width: 79.2%; height: 13.6%;
   border-radius: 999px;
   cursor: pointer;
-  /* 透明のまま。ホバー時にごく薄く白を乗せてクリックできると分かるように */
+  /* 透明のまま。画像のボタンの上に光沢だけを流してCTAらしさを出す */
   background: transparent; transition: background-color .15s ease;
+}
+.campaign .btn-overlay::after {
+  content: ""; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .5), transparent);
+  transform: skewX(-20deg); pointer-events: none;
+  animation: cta-shine 2.4s ease-in-out infinite;
 }
 .campaign .btn-overlay:hover { background: rgba(255, 255, 255, .12); }
 .campaign .btn-overlay:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
@@ -170,12 +185,7 @@ a { color: inherit; text-decoration: none; }
 .fixed-cta .btn { flex: 1; min-height: 76px; margin: 0; border-radius: 16px; font-size: 22px; gap: 10px; }
 .fixed-cta .btn .ico { width: 36px; height: 36px; }
 .fixed-cta .btn .t small { font-size: 13px; }
-.fixed-cta .btn-line { position: relative; overflow: hidden; animation: cta-shake 2.4s ease-in-out infinite; }
-.fixed-cta .btn-line::after {
-  content: ""; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .45), transparent);
-  transform: skewX(-20deg); animation: cta-shine 2.4s ease-in-out infinite;
-}
+
 @keyframes cta-shake {
   0%, 62%, 100% { transform: translateX(0) rotate(0); }
   66% { transform: translateX(-4px) rotate(-1.2deg); }
