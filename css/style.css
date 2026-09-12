@@ -1,0 +1,247 @@
+/* ============================================================
+   KOKOHOREわんにゃん ペットホテルLP — スタイル（チラシ型・画像貼り付け）
+   - PC：幅750pxの1カラムを中央に置く。スマホ：100%幅（750px基準の数値を vw に換算 ÷7.5）
+   - ①〜⑬は生成画像を幅100%で縦に並べる。⑭FAQ・⑮アクセス・⑯固定バーはHTML
+   ★色・フォントは :root だけ直せば全体に反映。LINE緑（--color-line）はCTA専用
+   ============================================================ */
+
+/* ===== デザイントークン（画像側と同じ配色） ===== */
+:root {
+  --color-line:        #06c755;   /* LINE公式グリーン：CTA専用（触らない） */
+  --color-line-dark:   #05a947;
+  --color-accent:      #b8733f;   /* テラコッタ：見出し・強調・電話ボタン */
+  --color-accent-dark: #9a5f32;
+  --color-accent-soft: #fbeee3;   /* テラコッタの淡い地 */
+  --color-text:        #4a3a2e;   /* ダークブラウン */
+  --color-text-weak:   #7a6a5c;
+  --color-bg:          #faf7f2;   /* 750px カラムの背景 = 画像の縁色（クリーム） */
+  --color-card:        #fdfcfa;
+  --color-page:        #ece7df;   /* PCでカラムの外側に見える背景 */
+  --color-border:      #e9dfd2;
+  --color-copy-bg:     #4a3a2e;   /* コピーライト帯 */
+
+  --font-base: "Zen Maru Gothic", "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, system-ui, sans-serif;
+  --wrap: 750px;
+  --fixed-cta-height: 104px;
+}
+
+/* ===== リセット & ベース ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  min-width: 320px;
+  font-family: var(--font-base);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--color-text);
+  background: var(--color-page);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "palt";
+  padding-bottom: calc(var(--fixed-cta-height) + env(safe-area-inset-bottom));
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+[hidden] { display: none !important; }
+
+/* ===== 750px カラム ===== */
+.wrap { width: var(--wrap); margin: 0 auto; background: var(--color-bg); box-shadow: 0 0 40px rgba(0, 0, 0, .06); }
+.slice img { width: 100%; }
+
+/* ===== ①FV：画像の左上にロゴ、下部にCTAボタンを重ねる ===== */
+.fv { position: relative; }
+.fv .fv-logo { position: absolute; z-index: 2; top: 16px; left: 20px; width: 120px; height: auto; padding: 6px 10px; background: rgba(253,252,250,.9); border-radius: 12px; }
+.photo-wrap { position: relative; }
+.photo-wrap .img-note {
+  position: absolute; z-index: 2; right: 14px; bottom: 14px;
+  padding: 3px 10px; border-radius: 999px;
+  background: rgba(40, 30, 20, .5); color: #fff;
+  font-size: 14px; line-height: 1.6; font-weight: 500;
+}
+/* ★4.6バッジ（画像には焼き込まず、テキストで時点更新できるようにする） */
+.fv .rating {
+  position: absolute; z-index: 2; top: 18px; right: 22px;
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 999px;
+  background: rgba(253, 252, 250, .94); border: 1px solid var(--color-border);
+  font-size: 18px; font-weight: 700; color: var(--color-text);
+  box-shadow: 0 4px 12px rgba(74, 58, 46, .10);
+}
+.fv .rating b { color: var(--color-accent); font-size: 22px; }
+.fv .rating small { font-size: 12px; font-weight: 500; color: var(--color-text-weak); }
+
+/* ===== CTAブロック（FV直下・②直下・最終）：LINE本命＋電話 ===== */
+.cta-block { padding: 28px 40px 36px; text-align: center; background: var(--color-bg); }
+.cta-block.tint { background: var(--color-accent-soft); }
+.cta-lead { font-size: 26px; line-height: 1.6; font-weight: 700; margin-bottom: 18px; }
+.cta-lead small { display: block; font-size: 18px; font-weight: 500; color: var(--color-text-weak); margin-top: 6px; }
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  width: 100%; min-height: 96px; margin: 0 auto;
+  border-radius: 20px; font-size: 30px; font-weight: 700; letter-spacing: .02em;
+  transition: transform .15s ease, background-color .15s ease;
+}
+.btn + .btn { margin-top: 14px; }
+.btn .ico { flex: none; width: 44px; height: 44px; }
+.btn .t { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; line-height: 1.2; }
+.btn .t small { font-size: 17px; font-weight: 500; opacity: .92; }
+.btn-line { background: var(--color-line); color: #fff; box-shadow: 0 10px 24px rgba(6, 199, 85, .3); }
+.btn-line:hover { background: var(--color-line-dark); transform: translateY(-2px); }
+.btn-tel { background: #fff; color: var(--color-accent); border: 3px solid var(--color-accent); box-shadow: 0 8px 20px rgba(184, 115, 63, .14); }
+.btn-tel:hover { background: var(--color-accent-soft); }
+.btn-line .ico { color: var(--color-line); background: #fff; border-radius: 50%; padding: 8px; }
+.btn-tel .ico { color: #fff; background: var(--color-accent); border-radius: 50%; padding: 9px; }
+
+/* ===== 画像下の注記 ===== */
+.notes { padding: 8px 40px 14px; text-align: center; background: var(--color-bg); }
+.notes p { font-size: 13px; line-height: 1.6; color: var(--color-text-weak); }
+
+/* ===== HTMLブロック共通見出し（⑭⑮） ===== */
+.sec-title { text-align: center; font-size: 52px; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: var(--color-text); letter-spacing: .02em; }
+.sec-bar { width: 76px; height: 5px; background: var(--color-accent); border-radius: 3px; margin: 0 auto 32px; }
+
+/* ===== ⑭ よくあるご質問 ===== */
+.faq { padding: 60px 36px 40px; background: var(--color-bg); }
+.faq-list { display: grid; gap: 14px; }
+.faq-list details { background: var(--color-card); border: 1px solid var(--color-border); border-radius: 18px; padding: 0 24px; box-shadow: 0 6px 18px rgba(74, 58, 46, .06); }
+.faq-list summary { position: relative; list-style: none; cursor: pointer; display: flex; align-items: flex-start; gap: 14px; padding: 22px 52px 22px 0; font-size: 22px; font-weight: 700; line-height: 1.55; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary .q { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--color-accent); color: #fff; font-size: 20px; }
+.faq-list summary::after {
+  content: ""; position: absolute; right: 4px; top: 30px;
+  width: 14px; height: 14px; border-right: 3px solid var(--color-accent); border-bottom: 3px solid var(--color-accent);
+  transform: rotate(45deg); transition: transform .2s;
+}
+.faq-list details[open] summary::after { transform: rotate(225deg); top: 36px; }
+.faq-list .a { display: flex; gap: 14px; padding: 0 0 24px; }
+.faq-list .a .mark { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--color-accent-soft); color: var(--color-accent); font-size: 20px; font-weight: 700; }
+.faq-list .a p { font-size: 19px; line-height: 1.75; color: var(--color-text); padding-top: 6px; }
+.faq-list .a p small { display: block; font-size: 15px; color: var(--color-text-weak); margin-top: 6px; }
+.faq-tail { margin-top: 28px; text-align: center; font-size: 18px; color: var(--color-text-weak); line-height: 1.7; }
+
+/* ===== ⑮ アクセス・施設情報 ===== */
+.access { padding: 60px 36px 50px; background: var(--color-bg); }
+.access .card { background: var(--color-card); border: 1px solid var(--color-border); border-radius: 22px; box-shadow: 0 6px 18px rgba(74, 58, 46, .06); padding: 32px 30px; }
+.access .card + .card { margin-top: 20px; }
+.shop-name { text-align: center; font-size: 30px; font-weight: 700; line-height: 1.4; }
+.shop-name small { display: block; font-size: 15px; letter-spacing: .1em; color: var(--color-accent); margin-bottom: 4px; }
+.address { text-align: center; font-size: 21px; line-height: 1.7; margin: 10px 0 22px; }
+.address small { display: block; font-size: 17px; color: var(--color-text-weak); }
+.map { width: 100%; aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; border: 1px solid var(--color-border); background: #f3eee6; }
+.map iframe { display: block; width: 100%; height: 100%; border: 0; }
+.info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; margin-top: 24px; }
+.info div { display: flex; gap: 10px; align-items: flex-start; font-size: 18px; line-height: 1.6; }
+.info .k { flex: none; color: var(--color-accent); font-weight: 700; min-width: 4.5em; }
+.warn { background: var(--color-accent-soft); border: 1px solid #efd6c0; border-radius: 16px; padding: 22px 24px; margin-top: 24px; }
+.warn h3 { display: flex; align-items: center; gap: 10px; font-size: 21px; color: var(--color-accent); margin-bottom: 8px; }
+.warn h3::before { content: "!"; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--color-accent); color: #fff; font-size: 18px; }
+.warn p { font-size: 17px; line-height: 1.75; }
+.legal h3 { text-align: center; font-size: 23px; margin-bottom: 16px; }
+.legal table { width: 100%; border-collapse: collapse; font-size: 17px; }
+.legal th, .legal td { padding: 11px 8px; border-bottom: 1px solid var(--color-border); text-align: left; vertical-align: top; line-height: 1.6; }
+.legal th { width: 40%; color: var(--color-accent); font-weight: 700; }
+.legal tr:last-child > * { border-bottom: 0; }
+
+/* ===== コピーライト ===== */
+.copy { font-size: 16px; text-align: center; background: var(--color-copy-bg); color: #fff; padding: 22px 0 20px; }
+
+/* ===== ⑯ フッター固定バー（LINE＋電話。750pxカラム幅で中央固定） ===== */
+.fixed-cta {
+  position: fixed; z-index: 100; left: 50%; bottom: 0; transform: translateX(-50%);
+  width: min(var(--wrap), 100%);
+  display: flex; gap: 12px;
+  padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+  background: rgba(253, 252, 250, .96);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -8px 24px rgba(74, 58, 46, .12);
+}
+.fixed-cta .btn { flex: 1; min-height: 76px; margin: 0; border-radius: 16px; font-size: 22px; gap: 10px; }
+.fixed-cta .btn .ico { width: 36px; height: 36px; }
+.fixed-cta .btn .t small { font-size: 13px; }
+.fixed-cta .btn-line { position: relative; overflow: hidden; animation: cta-shake 2.4s ease-in-out infinite; }
+.fixed-cta .btn-line::after {
+  content: ""; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .45), transparent);
+  transform: skewX(-20deg); animation: cta-shine 2.4s ease-in-out infinite;
+}
+@keyframes cta-shake {
+  0%, 62%, 100% { transform: translateX(0) rotate(0); }
+  66% { transform: translateX(-4px) rotate(-1.2deg); }
+  70% { transform: translateX(4px) rotate(1.2deg); }
+  74% { transform: translateX(-3px) rotate(-.8deg); }
+  78% { transform: translateX(3px) rotate(.8deg); }
+  82% { transform: translateX(0) rotate(0); }
+}
+@keyframes cta-shine { 0%, 20% { left: -60%; } 55%, 100% { left: 130%; } }
+
+/* ============================================================
+   スマホ（〜749px）：750px基準の数値を vw に換算（値 ÷ 7.5 = vw）
+   ============================================================ */
+@media screen and (max-width: 749px) {
+  .wrap { width: 100%; box-shadow: none; }
+  :root { --fixed-cta-height: 84px; }
+
+  .fv .fv-logo { top: 2.133vw; left: 2.667vw; width: 16vw; padding: .8vw 1.333vw; border-radius: 1.6vw; }
+  .fv .rating { top: 2.4vw; right: 2.933vw; padding: 1.067vw 1.867vw; gap: .8vw; font-size: clamp(11px, 2.4vw, 18px); }
+  .fv .rating b { font-size: clamp(13px, 2.933vw, 22px); }
+  .fv .rating small { font-size: clamp(8px, 1.6vw, 12px); }
+  .photo-wrap .img-note { right: 1.867vw; bottom: 1.867vw; padding: .4vw 1.333vw; font-size: clamp(9px, 1.867vw, 14px); }
+
+  .cta-block { padding: 3.733vw 5.333vw 4.8vw; }
+  .cta-lead { font-size: clamp(14px, 3.467vw, 26px); margin-bottom: 2.4vw; }
+  .cta-lead small { font-size: clamp(11px, 2.4vw, 18px); }
+  .btn { min-height: 12.8vw; border-radius: 2.667vw; font-size: clamp(15px, 4vw, 30px); gap: 2.133vw; }
+  .btn + .btn { margin-top: 1.867vw; }
+  .btn .ico { width: 5.867vw; height: 5.867vw; }
+  .btn .t small { font-size: clamp(10px, 2.267vw, 17px); }
+  .btn-line .ico { padding: 1.067vw; }
+  .btn-tel .ico { padding: 1.2vw; }
+
+  .notes { padding: 1.067vw 5.333vw 1.867vw; }
+  .notes p { font-size: clamp(9px, 1.733vw, 13px); }
+
+  .sec-title { font-size: clamp(22px, 6.933vw, 52px); margin-bottom: 1.333vw; }
+  .sec-bar { width: 10.133vw; height: .667vw; margin-bottom: 4.267vw; }
+
+  .faq { padding: 8vw 4.8vw 5.333vw; }
+  .faq-list { gap: 1.867vw; }
+  .faq-list details { border-radius: 2.4vw; padding: 0 3.2vw; }
+  .faq-list summary { gap: 1.867vw; padding: 2.933vw 6.933vw 2.933vw 0; font-size: clamp(13px, 2.933vw, 22px); }
+  .faq-list summary .q { width: 5.067vw; height: 5.067vw; font-size: clamp(11px, 2.667vw, 20px); }
+  .faq-list summary::after { right: .533vw; top: 4vw; width: 1.867vw; height: 1.867vw; }
+  .faq-list details[open] summary::after { top: 4.8vw; }
+  .faq-list .a { gap: 1.867vw; padding-bottom: 3.2vw; }
+  .faq-list .a .mark { width: 5.067vw; height: 5.067vw; font-size: clamp(11px, 2.667vw, 20px); }
+  .faq-list .a p { font-size: clamp(12px, 2.533vw, 19px); padding-top: .8vw; }
+  .faq-list .a p small { font-size: clamp(10px, 2vw, 15px); }
+  .faq-tail { margin-top: 3.733vw; font-size: clamp(11px, 2.4vw, 18px); }
+
+  .access { padding: 8vw 4.8vw 6.667vw; }
+  .access .card { border-radius: 2.933vw; padding: 4.267vw 4vw; }
+  .access .card + .card { margin-top: 2.667vw; }
+  .shop-name { font-size: clamp(18px, 4vw, 30px); }
+  .shop-name small { font-size: clamp(9px, 2vw, 15px); }
+  .address { font-size: clamp(13px, 2.8vw, 21px); margin: 1.333vw 0 2.933vw; }
+  .address small { font-size: clamp(11px, 2.267vw, 17px); }
+  .map { border-radius: 2.133vw; }
+  .info { gap: 1.6vw 3.2vw; margin-top: 3.2vw; }
+  .info div { gap: 1.333vw; font-size: clamp(11px, 2.4vw, 18px); }
+  .warn { border-radius: 2.133vw; padding: 2.933vw 3.2vw; margin-top: 3.2vw; }
+  .warn h3 { gap: 1.333vw; font-size: clamp(13px, 2.8vw, 21px); }
+  .warn h3::before { width: 3.733vw; height: 3.733vw; font-size: clamp(11px, 2.4vw, 18px); }
+  .warn p { font-size: clamp(11px, 2.267vw, 17px); }
+  .legal h3 { font-size: clamp(14px, 3.067vw, 23px); margin-bottom: 2.133vw; }
+  .legal table { font-size: clamp(10px, 2.267vw, 17px); }
+  .legal th, .legal td { padding: 1.467vw 1.067vw; }
+
+  .copy { font-size: clamp(10px, 2.133vw, 16px); padding: 2.933vw 0 2.667vw; }
+
+  .fixed-cta { gap: 8px; padding: 9px max(10px, env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left)); }
+  .fixed-cta .btn { min-height: 64px; border-radius: 12px; font-size: clamp(13px, 3.6vw, 17px); gap: 6px; white-space: nowrap; }
+  .fixed-cta .btn .ico { width: 28px; height: 28px; }
+  .fixed-cta .btn .t small { font-size: clamp(9px, 2.4vw, 11px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+}
