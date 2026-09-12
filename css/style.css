@@ -91,6 +91,19 @@ a { color: inherit; text-decoration: none; }
 .btn-line .ico { color: var(--color-line); background: #fff; border-radius: 50%; padding: 8px; }
 .btn-tel .ico { color: #fff; background: var(--color-accent); border-radius: 50%; padding: 9px; }
 
+/* ===== ②キャンペーン：画像内のLINEボタンの上に透明リンクを重ねる ===== */
+/* 位置は画像（1500×1500）内のボタン。画像を作り直したら left/top/width/height を合わせて調整 */
+.campaign .btn-overlay {
+  position: absolute; z-index: 2;
+  left: 10.4%; top: 78%; width: 79.2%; height: 13.6%;
+  border-radius: 999px;
+  cursor: pointer;
+  /* 透明のまま。ホバー時にごく薄く白を乗せてクリックできると分かるように */
+  background: transparent; transition: background-color .15s ease;
+}
+.campaign .btn-overlay:hover { background: rgba(255, 255, 255, .12); }
+.campaign .btn-overlay:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+
 /* ===== 画像下の注記 ===== */
 .notes { padding: 8px 40px 14px; text-align: center; background: var(--color-bg); }
 .notes p { font-size: 13px; line-height: 1.6; color: var(--color-text-weak); }
